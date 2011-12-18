@@ -1,0 +1,31 @@
+<h2>Use one of these cards on file?</h2>
+
+<p class="field">
+
+  <% if @cards.present? %>
+  <table class="order-summary" style="width:545px;">
+    <thead>
+      <tr>
+        <th>Card Number(last four digits)</th>
+        <th>Expiration Month</th>
+        <th>Expiration Year</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cards.each do |card| %>
+        <tr class="<%= cycle('even', 'odd') %>">
+          <td><%= card.last_digits %></td>
+          <td><%= card.month %></td>
+          <td><%= card.year %></td>
+          <td><%= radio_button_tag "existing_card", card.id %></td>
+<!-- #{param_prefix} -->
+        </tr>
+      <% end %>
+    </tbody>
+   </table>
+  <% end %>
+</p>
+
+
+
