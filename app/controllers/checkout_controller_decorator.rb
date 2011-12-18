@@ -1,12 +1,13 @@
-CheckoutController.class_eval do
+require 'card_reuse'
 
-  require 'card_reuse'
+CheckoutController.class_eval do
+  include CardReuse
 
   private
 
   def before_payment
     current_order.payments.destroy_all if request.put?
-    @cards = all_credit_cards_for_user(@order.user)
+    @cards = all_cards_for_user(@order.user)
   end
 
   # we are overriding this method in order to substitue in the exisiting card information
