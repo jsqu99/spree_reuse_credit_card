@@ -1,7 +1,13 @@
 SpreeReuseCreditCard
 ====================
 
-The extension is to be used in conjunction with an appropriate payment-profile-enabled, spree-supported payment processor (e.g. Authorize.net CIM, USA-EPay, Stripe(coming soon))
+This extension enables view enhancements for managing multiple previously-used credit cards for Spree.
+
+It adds a user/accounts section listing the current credit cards on file.
+
+On the payment screen it adds a 'reuse this card' section as well.
+
+It is to be used in conjunction with an appropriate payment-profile-enabled, spree-supported payment processor (e.g. Authorize.net CIM, USA-EPay, Stripe(coming soon))
 
 It is currently very much a work in progress!
 
