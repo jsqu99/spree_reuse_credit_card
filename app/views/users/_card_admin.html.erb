@@ -1,31 +1,50 @@
+<%= content_for :head do %>
+  <%= javascript_tag do -%>
+    <%== "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+  <% end -%>
+
+  <%# need explicit .js/.css since they exist in same directory and sprockets is confused%>
+  <%= javascript_include_tag 'jquery.alerts/jquery.alerts.js' %>
+  <%= stylesheet_link_tag 'jquery.alerts/jquery.alerts.css' %>
+<% end %>
+
+
 <%# requires local being passed in for user %>
 
-<h2>Credit Cards on File</h2>
 
-<p class="field">
-  <% if @cards.present? %>
-  <table class="order-summary" style="width:545px;">
-    <thead>
-      <tr>
-        <th>Card Number(last four digits)</th>
-        <th>Expiration Month</th>
-        <th>Expiration Year</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @cards.each do |card| %>
-        <tr class="<%= cycle('even', 'odd') %>">
-          <td><%= card.last_digits %></td>
-          <td><%= card.month %></td>
-          <td><%= card.year %></td>
-          <td><%= radio_button_tag 'credit_card_id', card.id %></td>
+<% if @cards.present? %>
+
+  <div id='card_notice'></div>
+
+  <h2>Credit Cards on File</h2>
+
+  <p class="field">
+    <table class="order-summary" style="width:545px;">
+      <thead>
+        <tr>
+          <th>Card Number(last four digits)</th>
+          <th>Expiration Month</th>
+          <th>Expiration Year</th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-   </table>
-  <% end %>
-</p>
+      </thead>
+      <tbody>
+        <% @cards.each do |card| %>
+          <tr id="<%= dom_id(card)%>" class="<%= cycle('even', 'odd') %>">
+            <td><%= card.last_digits %></td>
+            <td><%= card.month %></td>
+            <td><%= card.year %></td>
+
+            <%# passing in an explicit 'url' here let's us make use of this 'admin' helper and bypass the object_url %>
+            <%# (from resourcec_ontroller) that is embedded in the helper %>
+            <td><%= link_to_delete card, {:url => creditcard_url(card)} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+     </table>
+  </p>
+<% end %>
+
 
 
 

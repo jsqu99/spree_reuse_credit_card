@@ -5,6 +5,6 @@ module CardReuse
     orders = Order.where(:user_id => user.id).complete.order(:created_at).joins(:payments).where('payments.source_type' => 'Creditcard').where('payments.state' => 'completed')
     payments = orders.map(&:payments).flatten
 
-    payments.map(&:source)
+    payments.map{|payment| payment.source unless payment.source.deleted?}.compact
   end
 end
