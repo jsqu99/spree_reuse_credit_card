@@ -13,4 +13,8 @@ It is currently very much a work in progress!
 
 Please feel free to contact me (via github issues) with any issues you may have.
 
+Installation
+============
+    bundle exec rails g spree_reuse_credit_card:install
+
 Copyright (c) 2011 Jeffrey D. Squires, released under the New BSD License
