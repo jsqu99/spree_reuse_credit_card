@@ -1,4 +1,5 @@
-"0.70.x" => { :branch => "master"}
+"1.0.x" => { :branch => "master"}
+"0.70.x" => { :branch => "spree-0-70-stable"}
 
 # This file is used to designate compatibilty with different versions of Spree
 # Please see http://spreecommerce.com/documentation/extensions.html#versionfile for details
