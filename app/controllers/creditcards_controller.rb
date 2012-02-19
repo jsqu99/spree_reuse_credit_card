@@ -1,6 +1,6 @@
 class CreditcardsController < Spree::BaseController
 
-  respond_to :js
+  respond_to :json
 
   def destroy
     @creditcard = Spree::Creditcard.find(params["id"])
@@ -10,11 +10,13 @@ class CreditcardsController < Spree::BaseController
     # I'm thinking we want to always leave them alone
 
     if @creditcard.update_attribute(:deleted_at, Time.now)
-      flash[:notice] = I18n.t(:creditcard_successfully_removed)
       respond_with(@creditcard) do |format|
-        format.js   { render :partial => "/shared/card_destroy" }
+        format.json { render :status => 200 }
+      end
+    else
+      respond_with(@creditcard) do |format|
+        format.json { render :status => 500 }
       end
     end
-
   end
 end
