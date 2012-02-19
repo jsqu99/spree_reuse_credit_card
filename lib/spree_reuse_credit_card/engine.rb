@@ -23,7 +23,7 @@ module SpreeReuseCreditCard
       # (re-educate me if I'm thoroughly confused (which I am))
       Spree::Config.set(:auto_capture => true) rescue nil
 
-      Ability.register_ability(CreditCardAbility)
+      Spree::Ability.register_ability(::CreditCardAbility)
     end
 
     config.to_prepare &method(:activate).to_proc
