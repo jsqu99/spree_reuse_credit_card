@@ -1,11 +1,12 @@
-class CreditcardsController < Spree::BaseController
+module Spree
+  class CreditcardsController < Spree::BaseController
 
-  respond_to :json
+    respond_to :json
 
   def destroy
     @creditcard = Spree::Creditcard.find(params["id"])
     authorize! :destroy, @creditcard
-    
+
     # TODO: think about the necessity of deleting payment profiles here.
     # I'm thinking we want to always leave them alone
 

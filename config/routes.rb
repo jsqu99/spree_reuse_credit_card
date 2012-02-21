@@ -1,3 +1,3 @@
-Rails.application.routes.draw do
+Spree::Core::Engine.routes.draw do
   resources :creditcards
 end

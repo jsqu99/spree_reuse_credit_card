@@ -5,7 +5,7 @@
 function displayCreditCardDeleteStatus(notice) {
   notice_div = $('.flash.notice');
 
-  if notice {
+  if (notice) {
     if (notice_div.length > 0) {
       notice_div.html(notice);
       notice_div.show();
