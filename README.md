@@ -1,8 +1,6 @@
 SpreeReuseCreditCard
 ====================
 
-the master branch is currently being upgraded to spree 1.0 compatability so it is temporarily (next 24 hours?) in an uncertain state.
-
 This extension enables view enhancements for managing multiple previously-used credit cards for Spree.
 
 It adds a user/accounts section listing the current credit cards on file.

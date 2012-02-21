@@ -11,7 +11,7 @@ module SpreeReuseCreditCard
 
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), "../../app/**/*_decorator*.rb")) do |c|
-        Rails.application.config.cache_classes ? require(c) : load(c)
+        Rails.configuration.cache_classes ? require(c) : load(c)
       end
 
       # Yeah, I know.  Probably wrong place for this
