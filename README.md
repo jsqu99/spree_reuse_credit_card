@@ -1,6 +1,8 @@
 SpreeReuseCreditCard
 ====================
 
+Note that this extension should work with spree's 1-0-stable branch once https://github.com/spree/spree/pull/1170 is pulled.
+
 This extension enables view enhancements for managing multiple previously-used credit cards for Spree.
 
 It adds a user/accounts section listing the current credit cards on file.
