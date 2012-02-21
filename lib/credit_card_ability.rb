@@ -4,8 +4,10 @@ class CreditCardAbility
 
   def initialize(user)
 #    binding.pry
-    can :manage, Creditcard do |cc|
-      cc.user == user
+    can :manage, Spree::Creditcard do |cc|
+      cc.payments.joins(:order).
+        where("spree_orders.user_id" => user.id).
+        where("spree_orders.state" => "completed").exists?
     end
   end
 end

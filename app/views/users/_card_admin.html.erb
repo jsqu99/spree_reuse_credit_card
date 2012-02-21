@@ -2,12 +2,7 @@
   <%= javascript_tag do -%>
     <%== "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
   <% end -%>
-
-  <%# need explicit .js/.css since they exist in same directory and sprockets is confused%>
-  <%= javascript_include_tag 'jquery.alerts/jquery.alerts.js' %>
-  <%= stylesheet_link_tag 'jquery.alerts/jquery.alerts.css' %>
 <% end %>
-
 
 <% if @cards.present? %>
 
@@ -33,15 +28,11 @@
             <td><%= card.year %></td>
 
             <%# passing in an explicit 'url' here let's us make use of this 'admin' helper and bypass the object_url %>
-            <%# (from resourcec_ontroller) that is embedded in the helper %>
-            <td><%= link_to_delete card, {:url => creditcard_url(card)} %></td>
+            <%# (from resource_controller) that is embedded in the helper %>
+            <td><%= link_to_delete card, {:url => main_app.creditcard_url(card)} %></td>
           </tr>
         <% end %>
       </tbody>
      </table>
   </p>
 <% end %>
-
-
-
-
