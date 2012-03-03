@@ -5,10 +5,11 @@ describe "PayWithCreditCards" do
 
     let (:user) { Factory(:user) }
     
-
     before(:each) do
-      Factory(:bogus_payment_method, :display_on => :front_end)
-      Factory(:shipping_method)
+      @bogus_payment_method = Factory(:bogus_payment_method, :display_on => :front_end)
+
+      shipping_method = Factory(:shipping_method)
+      Spree::ShippingMethod.stub(:all_available) { [shipping_method] }
 
       sign_in_as!(user)
     end
@@ -35,7 +36,7 @@ describe "PayWithCreditCards" do
         order.state.should eq('payment')
 
         # add a payment 
-        payment = Factory(:payment, :order => order, :source =>  @credit_card, :amount => order.total)
+        payment = Factory(:payment, :order => order, :source =>  @credit_card, :amount => order.total, :payment_method => @bogus_payment_method)
 
         # go to confirm
         order.next
@@ -56,17 +57,17 @@ describe "PayWithCreditCards" do
         fill_in 'Last Name', :with => 'Squires'
         fill_in 'Street Address', :with => '123 Foo St'
         fill_in 'City', :with => 'Fooville'
-        save_and_open_page
-#        select 'Alabama', :from => 'order_bill_address_attributes_state_id'
         fill_in 'order_bill_address_attributes_state_name',:with => 'Alabama'
                                     
         fill_in 'Zip', :with => '12345'
         fill_in 'Phone', :with => '123-123-1234'
         check "Use Billing Address"
+
         click_button 'Save and Continue'
 
-        # page.should have_css('table.existing-credit-card-list tbody tr')
+        click_button 'Save and Continue'
         save_and_open_page
+
         page.should have_xpath("//table[@class='existing-credit-card-list']/tbody/tr", :text => @credit_card.last_digits) #, :count => x) 
       end
     end
