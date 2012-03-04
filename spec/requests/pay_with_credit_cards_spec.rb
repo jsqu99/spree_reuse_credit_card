@@ -47,7 +47,7 @@ describe "PayWithCreditCards" do
         order.state.should eq('complete')
       end
 
-      it "show an existing credit card list" do
+      it "allows an existing credit card to be chosen from list and used for a purchase" do
         visit spree.products_path
 
         find(:xpath, "//div[@class='product-image']/a").click
@@ -66,9 +66,15 @@ describe "PayWithCreditCards" do
         click_button 'Save and Continue'
 
         click_button 'Save and Continue'
-        save_and_open_page
 
         page.should have_xpath("//table[@class='existing-credit-card-list']/tbody/tr", :text => @credit_card.last_digits) #, :count => x) 
+        choose 'existing_card'
+        save_and_open_page
+
+        click_button 'Save and Continue'
+        save_and_open_page
+
+        page.should have_content "Ending in #{@credit_card.last_digits}"
       end
     end
   end
