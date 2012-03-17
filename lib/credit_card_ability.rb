@@ -6,7 +6,7 @@ class CreditCardAbility
     can :manage, Creditcard do |cc|
       cc.payments.joins(:order).
         where("orders.user_id" => user.id).
-        where("orders.state" => "completed").exists?
+        where("orders.state" => "complete").exists?
     end
   end
 end
