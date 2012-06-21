@@ -12,9 +12,10 @@ module Spree
 
       if @creditcard.update_attribute(:deleted_at, Time.now)
         respond_with(@creditcard) do |format|
-          format.json { render :status => 200 }
+          format.json { render :json => {} }
         end
       else
+
         respond_with(@creditcard) do |format|
           format.json { render :status => 500 }
         end

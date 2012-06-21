@@ -22,7 +22,7 @@
       </thead>
       <tbody>
         <% @cards.each do |card| %>
-          <tr id="<%= dom_id(card)%>" class="<%= cycle('even', 'odd') %>">
+          <tr id="<%= spree_dom_id(card)%>" class="<%= cycle('even', 'odd') %>">
             <td><%= card.last_digits %></td>
             <td><%= card.month %></td>
             <td><%= card.year %></td>
