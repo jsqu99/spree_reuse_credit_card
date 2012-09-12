@@ -1,5 +1,5 @@
 module Spree
-  Creditcard.class_eval do
+  CreditCard.class_eval do
     attr_accessible :deleted_at
 
     def deleted?

@@ -1,3 +1,3 @@
 Spree::Core::Engine.routes.draw do
-  resources :creditcards
+  resources :credit_cards
 end

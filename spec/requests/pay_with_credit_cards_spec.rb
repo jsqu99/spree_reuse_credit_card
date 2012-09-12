@@ -16,7 +16,7 @@ describe "PayWithCreditCards" do
 
     context "no existing cards" do
       it "does not show an existing credit card list"do
-        Spree::Creditcard.all.map(&:destroy)
+        Spree::CreditCard.all.map(&:destroy)
         visit '/checkout/payment' 
         page.should_not have_css('table.existing-credit-card-list tbody tr')
       end
@@ -26,7 +26,7 @@ describe "PayWithCreditCards" do
       before(:each) do
 
         # set up existing payments with this credit card
-        @credit_card = Factory(:creditcard)
+        @credit_card = Factory(:credit_card)
 
         order = Factory(:order_in_delivery_state, :user => user)
         order.update!  # set order.total

@@ -31,7 +31,7 @@
             <td><%= radio_button_tag "existing_card", card.id %></td>
             <%# passing in an explicit 'url' here let's us make use of this 'admin' helper and bypass the object_url %>
             <%# (from resource_controller) that is embedded in the helper %>
-            <td><%# link_to_delete card, {:url => main_app.creditcard_url(card)} %></td>
+            <td><%# link_to_delete card, {:url => main_app.credit_card_url(card)} %></td>
             <!-- #{param_prefix} -->
           </tr>
         <% end %>
