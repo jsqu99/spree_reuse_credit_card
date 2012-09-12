@@ -1,4 +1,5 @@
-"1.1.x" => { :branch => "master"}
+# "1.2.x" => { :branch => "master"}
+"1.1.x" => { :branch =>  "spree-1-1-stable"}
 "1.0.x" => { :branch => "spree-1-0-stable"}
 "0.70.x" => { :branch => "spree-0-70-stable"}
 
