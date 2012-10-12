@@ -24,6 +24,8 @@ $('#use_existing_card_no').live('click', function () {
                                        $("[data-hook=card_number]").show();
                                        $("[data-hook=card_expiration]").show();
                                        $("[data-hook=cart_code]").show(); // unfortunately this is a typo in spree (cart v card)
+
+                                       restoreContinueButton();
 });
 $('#use_existing_card_yes').live('click', function () {
                                        $("#existing_cards").show();
@@ -37,9 +39,12 @@ $('#use_existing_card_yes').live('click', function () {
 
 $('input[type=radio][name=existing_card]').live('change',function () {
                                                   if ($(this).is(':checked')) {
-                                                    $(".form-buttons input[type=submit]").attr('disabled',false);
-                                                    $(".form-buttons input[type=submit]").val(original_button_text);
+                                                    restoreContinueButton();
                                                   }
                                                 }
                                                );
 
+function restoreContinueButton() {
+  $(".form-buttons input[type=submit]").attr('disabled',false);
+  $(".form-buttons input[type=submit]").val(original_button_text);
+}
