@@ -1,7 +1,7 @@
 module Spree
   class CreditCardsController < Spree::BaseController
 
-    respond_to :json
+    respond_to :js
 
     def destroy
       @credit_card = Spree::CreditCard.find(params["id"])
@@ -10,16 +10,13 @@ module Spree
       # TODO: think about the necessity of deleting payment profiles here.
       # I'm thinking we want to always leave them alone
 
-      if @credit_card.update_attribute(:deleted_at, Time.now)
-        respond_with(@credit_card) do |format|
-          format.json { render :json => {} }
-        end
+      @credit_card.deleted_at = Time.now
+      if @credit_card.save
+        respond_with @credit_card
       else
-
-        respond_with(@credit_card) do |format|
-          format.json { render :status => 500 }
-        end
+        render template: 'spree/credit_cards/destroy_error'
       end
+
     end
   end
 end

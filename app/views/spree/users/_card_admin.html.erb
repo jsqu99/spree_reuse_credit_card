@@ -14,22 +14,28 @@
     <table class="existing-credit-card-list" style="width:545px;">
       <thead>
         <tr>
-          <th>Card Number(last four digits)</th>
-          <th>Expiration Month</th>
-          <th>Expiration Year</th>
+          <th>Card Number(last four)</th>
+          <th>Exp Month</th>
+          <th>Exp Year</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <% @cards.each do |card| %>
           <tr id="<%= spree_dom_id(card)%>" class="<%= cycle('even', 'odd') %>">
-            <td><%= card.last_digits %></td>
-            <td><%= card.month %></td>
-            <td><%= card.year %></td>
-            <td><%= link_to_delete_credit_card(card) %></td>
+            <td align="center"><%= card.last_digits %></td>
+            <td align="center"><%= card.month %></td>
+            <td align="center"><%= card.year %></td>
+            <td>
+            <%= link_to (icon('delete') + ' ' + t(:delete)),
+                spree.credit_card_url(card),
+                remote: true, method: :delete,
+                confirm: 'Are you sure?' %>
+            </td>
           </tr>
         <% end %>
       </tbody>
      </table>
   </p>
+
 <% end %>
