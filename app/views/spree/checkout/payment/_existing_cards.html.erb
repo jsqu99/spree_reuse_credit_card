@@ -16,24 +16,23 @@
   </div>
 
 <div id="existing_cards">
-  <script>
+  <%= javascript_tag do -%>
     var original_button_text;
     $(document).ready(function () {
-      $("[data-hook=card_number]").hide();
-      $("[data-hook=card_expiration]").hide();
-      $("[data-hook=cart_code]").hide(); // unfortunately this is a typo in spree (cart v card)
-
-      $(".form-buttons input[type=submit]").attr('disabled',true);
 
       // in the unusual event of having two different credit card providers on the page, check
       // to see if we've already saved the inital value
       if ($.type(original_button_text) === "undefined") {
-        original_button_text=$(".form-buttons input[type=submit]").val();
+        original_button_text = $(".form-buttons input[type=submit]").val();
       }
-      $(".form-buttons input[type=submit]").val('<%= t(:please_select_a_card_to_use) %>');
 
+      useExistingCardsInit();
+
+      // we are not on the 'my account' page, so let's plug in the
+      // appropriate callback for when a card is deleted
+      creditCardDeleteCallback = paymentPageCreditCardDeleteCallback;  
     });
-  </script>
+  <% end %>
 
   <p class="field" data-hook="existing_cards">
     <h4>Existing Cards</h4>
@@ -49,14 +48,17 @@
       </thead>
       <tbody>
         <% @cards.each do |card| %>
-          <tr id="<%= dom_id(card)%>" class="<%= cycle('even', 'odd') %>">
+          <tr id="<%= dom_id(card,'spree')%>" class="<%= cycle('even', 'odd') %>">
             <td><%= card.last_digits %></td>
             <td><%= card.month %></td>
             <td><%= card.year %></td>
-            <td><%= radio_button_tag "existing_card", card.id %></td>
-            <%# passing in an explicit 'url' here let's us make use of this 'admin' helper and bypass the object_url %>
-            <%# (from resource_controller) that is embedded in the helper %>
-            <td><%# link_to_delete card, {:url => main_app.credit_card_url(card)} %></td>
+            <td><%= radio_button_tag "existing_card", card.id, (@cards.size ==1) %></td> <%# if we only have 1 saved card, autoselect %>
+            <td>
+            <%= link_to (image_tag("admin/icons/delete.png") + t(:delete)),
+                spree.credit_card_url(card),
+                remote: true, method: :delete,
+                confirm: 'Are you sure?' %>
+            </td>
             <!-- #{param_prefix} -->
           </tr>
         <% end %>
