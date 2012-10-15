@@ -18,6 +18,7 @@
 <div id="existing_cards">
   <%= javascript_tag do -%>
     var original_button_text;
+
     $(document).ready(function () {
 
       // in the unusual event of having two different credit card providers on the page, check
@@ -30,7 +31,7 @@
 
       // we are not on the 'my account' page, so let's plug in the
       // appropriate callback for when a card is deleted
-      creditCardDeleteCallback = paymentPageCreditCardDeleteCallback;  
+      creditCardDeleteCallback = paymentPageResetCreditCardOptions;  
     });
   <% end %>
 

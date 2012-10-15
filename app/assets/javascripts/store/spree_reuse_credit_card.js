@@ -19,7 +19,7 @@ function displayCreditCardDeleteStatus(notice) {
 }
 
 
-function paymentPageCreditCardDeleteCallback() {
+function paymentPageResetCreditCardOptions() {
   // if we don't do this, we'll accidentally submit our 'use existing' 
   // id and we won't use a new card
   $("#existing_cards input[type=radio]:checked:hidden").removeAttr('checked');
@@ -67,6 +67,24 @@ $('input[type=radio][name=existing_card]').live('change',function () {
                                                 }
                                                );
 
+// when we select a different payment method, make sure we re-enable the continue button
+// so find every payment method radio that's not a credit card method
+$('input[type="radio"][name="order[payments_attributes][][payment_method_id]"]').live('click', function() {
+  ($('#payment-methods li')).hide();
+  if (this.checked) {
+    // why doesn't this work????
+    // if ($.contains($('#payment_method_' + this.value),$('#card_notice'))) {
+    if ($('#payment_method_' + this.value).find('#card_notice').length > 0) {
+      disableContinueButton();
+    } else {
+      restoreContinueButton();
+    }
+
+    return ($('#payment_method_' + this.value)).show();
+  }
+});
+
+    
 function restoreContinueButton() {
   $(".form-buttons input[type=submit]").attr('disabled',false);
   $(".form-buttons input[type=submit]").val(original_button_text);
