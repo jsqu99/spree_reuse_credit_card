@@ -20,7 +20,7 @@ function displayCreditCardDeleteStatus(notice) {
 
 
 function paymentPageResetCreditCardOptions() {
-  // if we don't do this, we'll accidentally submit our 'use existing' 
+  // if we don't do this, we'll accidentally submit our 'use existing'
   // id and we won't use a new card
   $("#existing_cards input[type=radio]:checked:hidden").removeAttr('checked');
 
@@ -51,10 +51,10 @@ $('#use_existing_card_no').live('click', function () {
 
                                        restoreContinueButton();
 
-  // if we don't do this, we'll accidentally submit our 'use existing' 
+  // if we don't do this, we'll accidentally submit our 'use existing'
   // id and we won't use a new card
   $("#existing_cards input[type=radio]:checked").removeAttr('checked');
-    
+
 });
 $('#use_existing_card_yes').live('click', function () {
   useExistingCardsInit();
@@ -74,7 +74,8 @@ $('input[type="radio"][name="order[payments_attributes][][payment_method_id]"]')
   if (this.checked) {
     // why doesn't this work????
     // if ($.contains($('#payment_method_' + this.value),$('#card_notice'))) {
-    if ($('#payment_method_' + this.value).find('#card_notice').length > 0) {
+    // if ($('#payment_method_' + this.value).find('#card_notice').length > 0) {
+    if ($('.existing-credit-card-list').length > 0) {
       disableContinueButton();
     } else {
       restoreContinueButton();
@@ -84,7 +85,7 @@ $('input[type="radio"][name="order[payments_attributes][][payment_method_id]"]')
   }
 });
 
-    
+
 function restoreContinueButton() {
   $(".form-buttons input[type=submit]").attr('disabled',false);
   $(".form-buttons input[type=submit]").val(original_button_text);
@@ -104,7 +105,7 @@ function useExistingCardsInit() {
 
 function disableContinueButton() {
   if ($("#existing_cards input[type=radio]:checked").length == 0) {
-    // temporarily rename & disable the save button if no cards are selected 
+    // temporarily rename & disable the save button if no cards are selected
     $(".form-buttons input[type=submit]").attr('disabled',true);
     $(".form-buttons input[type=submit]").val('Please Select a Card to Use');
   }
