@@ -88,7 +88,7 @@ $('input[type="radio"][name="order[payments_attributes][][payment_method_id]"]')
 
 function restoreContinueButton() {
   $(".form-buttons input[type=submit]").attr('disabled',false);
-  // $(".form-buttons input[type=submit]").val(original_button_text);
+  $(".form-buttons input[type=submit]").val(original_button_text);
 }
 
 function useExistingCardsInit() {
