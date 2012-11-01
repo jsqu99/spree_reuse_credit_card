@@ -66,6 +66,3 @@ RSpec.configure do |config|
 
   config.include AuthenticationHelpers, :type => :request
 end
-
-Spree::Config[:auto_capture] = true
-

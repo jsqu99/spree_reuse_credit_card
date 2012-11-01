@@ -14,11 +14,6 @@ module SpreeReuseCreditCard
         Rails.configuration.cache_classes ? require(c) : load(c)
       end
 
-      # Yeah, I know.  Probably wrong place for this
-      # There are problems putting it in other places as well
-      # (re-educate me if I'm thoroughly confused (which I am))
-      Spree::Config.set(:auto_capture => true) rescue nil
-
       Spree::Ability.register_ability(::CreditCardAbility)
     end
 
