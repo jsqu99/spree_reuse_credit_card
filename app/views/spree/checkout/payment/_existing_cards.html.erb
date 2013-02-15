@@ -7,7 +7,6 @@
 
 <div id='card_notice'></div>
 
-
 <% if @cards.present? %>
   <div id="card_options">
   <%= radio_button_tag 'use_existing_card', 'yes', true %>
@@ -51,7 +50,7 @@
             <td><%= radio_button_tag "existing_card", card.id, (@cards.size ==1) %></td> <%# if we only have 1 saved card, autoselect %>
             <td>
             <%= link_to (image_tag("admin/icons/delete.png") + t(:delete)),
-                spree.credit_card_url(card),
+                spree.creditcard_url(card),
                 remote: true, method: :delete,
                 confirm: 'Are you sure?' %>
             </td>

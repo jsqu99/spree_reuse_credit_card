@@ -16,7 +16,7 @@ describe "PayWithCreditCards" do
 
     context "no existing cards" do
       it "does not show an existing credit card list"do
-        Spree::CreditCard.all.map(&:destroy)
+        Spree::Creditcard.all.map(&:destroy)
         visit '/checkout/payment' 
         page.should_not have_css('table.existing-credit-card-list tbody tr')
       end
