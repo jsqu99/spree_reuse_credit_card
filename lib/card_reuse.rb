@@ -7,7 +7,8 @@ module CardReuse
     payments.map do |payment| 
       src = payment.source
 
-      if src.gateway_payment_profile_id.nil? || src.gateway_customer_profile_id.nil? || src.deleted?
+      # some payment gateways use only one of these?  stripe possibly?
+      if (src.gateway_payment_profile_id.nil? && src.gateway_customer_profile_id.nil?) || src.deleted?
         nil
       else
         src
