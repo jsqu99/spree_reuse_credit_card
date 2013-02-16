@@ -39,7 +39,7 @@ function paymentPageResetCreditCardOptions() {
   }
 }
 
-$('#use_existing_card_no').live('click', function () {
+$(document).on('click', '#use_existing_card_no', function () {
                                        // why am i having to hide the contents of the div as well???
                                        $("#existing_cards").hide();
                                        $("#existing_cards h4").hide();
@@ -56,11 +56,12 @@ $('#use_existing_card_no').live('click', function () {
   $("#existing_cards input[type=radio]:checked").removeAttr('checked');
 
 });
-$('#use_existing_card_yes').live('click', function () {
+
+$(document).on('click', '#use_existing_card_yes', function () {
   useExistingCardsInit();
 });
 
-$('input[type=radio][name=existing_card]').live('change',function () {
+$(document).on('change', 'input[type=radio][name=existing_card]',function () {
                                                   if ($(this).is(':checked')) {
                                                     restoreContinueButton();
                                                   }
@@ -69,7 +70,8 @@ $('input[type=radio][name=existing_card]').live('change',function () {
 
 // when we select a different payment method, make sure we re-enable the continue button
 // so find every payment method radio that's not a credit card method
-$('input[type="radio"][name="order[payments_attributes][][payment_method_id]"]').live('click', function() {
+
+$(document).on('click','input[type="radio"][name="order[payments_attributes][][payment_method_id]"]', function() {
   ($('#payment-methods li')).hide();
   if (this.checked) {
     // why doesn't this work????
