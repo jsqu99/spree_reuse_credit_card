@@ -3,7 +3,7 @@ require 'card_reuse'
 module Spree
   UsersController.class_eval do
     include CardReuse
-    helper 'spree/admin/base'  # for spree_dom_id
+    helper 'spree/admin/base'  # for dom_id
     helper 'spree/admin/navigation'
 
     before_filter :load_existing_cards, :only => :show
