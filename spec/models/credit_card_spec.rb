@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-#describe Spree::Creditcard do
+#describe Spree::CreditCard do
 #
-#  let(:valid_creditcard_attributes) { {:number => '4111111111111111', :verification_value => '123', :month => 12, :year => (Time.now.year + 1)} }
+#  let(:valid_credit_card_attributes) { {:number => '4111111111111111', :verification_value => '123', :month => 12, :year => (Time.now.year + 1)} }
 #
 #  before(:each) do
 #
 #    @order = Factory(:order)
-#    @creditcard = Spree::Creditcard.new
+#    @credit_card = Spree::CreditCard.new
 #    @payment = Spree::Payment.create(:amount => 100, :order => @order)
 #
 #    @success_response = mock('gateway_response', :success? => true, :authorization => '123', :avs_result => {'code' => 'avs-code'})

@@ -26,7 +26,7 @@ describe "PayWithCreditCards" do
       before(:each) do
 
         # set up existing payments with this credit card
-        @credit_card = Factory(:creditcard)
+        @credit_card = Factory(:credit_card)
 
         order = Factory(:order_in_delivery_state, :user => user)
         order.update!  # set order.total

@@ -1,21 +1,40 @@
 <%= content_for :head do %>
   <%= javascript_tag do -%>
       <%== "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+      var original_button_text = "<%= t(:save_and_continue) %>";
   <% end -%>
 <% end %>
 
 <div id='card_notice'></div>
 
 <% if @cards.present? %>
+  <div id="card_options">
+  <%= radio_button_tag 'use_existing_card', 'yes', true %>
+  <label>Use an existing card on file</label>
+  <br/>
+  <%= radio_button_tag 'use_existing_card', 'no' %>
+  <label>Use a new card</label>
+  </div>
 
-  <h2>Use one of these cards on file?</h2>
+<div id="existing_cards">
+  <%= javascript_tag do -%>
 
-  <p class="field">
+    $(document).ready(function () {
 
-    <table class="existing-credit-card-list" style="width:545px;">
+      useExistingCardsInit();
+
+      // we are not on the 'my account' page, so let's plug in the
+      // appropriate callback for when a card is deleted
+      creditCardDeleteCallback = paymentPageResetCreditCardOptions;  
+    });
+  <% end %>
+
+  <p class="field" data-hook="existing_cards">
+    <h4>Existing Cards</h4>
+    <table class="existing-credit-card-list">
       <thead>
         <tr>
-          <th>Card Number(last four digits)</th>
+          <th>Card Number (last four)</th>
           <th>Expiration Month</th>
           <th>Expiration Year</th>
           <th>Use?</th>
@@ -24,22 +43,24 @@
       </thead>
       <tbody>
         <% @cards.each do |card| %>
-          <tr id="<%= dom_id(card)%>" class="<%= cycle('even', 'odd') %>">
+          <tr id="<%= dom_id(card,'spree')%>" class="<%= cycle('even', 'odd') %>">
             <td><%= card.last_digits %></td>
             <td><%= card.month %></td>
             <td><%= card.year %></td>
-            <td><%= radio_button_tag "existing_card", card.id %></td>
-            <%# passing in an explicit 'url' here let's us make use of this 'admin' helper and bypass the object_url %>
-            <%# (from resource_controller) that is embedded in the helper %>
-            <td><%# link_to_delete card, {:url => main_app.creditcard_url(card)} %></td>
+            <td><%= radio_button_tag "existing_card", card.id, (@cards.size ==1) %></td> <%# if we only have 1 saved card, autoselect %>
+            <td>
+            <%= link_to (image_tag("admin/icons/delete.png") + t(:delete)),
+                spree.creditcard_url(card),
+                remote: true, method: :delete,
+                confirm: 'Are you sure?' %>
+            </td>
             <!-- #{param_prefix} -->
           </tr>
         <% end %>
       </tbody>
     </table>
   </p>
-
-  <h2>Or enter your credit card information below</h2>
+</div> <!-- existing_cards -->
 
 <% end %>
 
