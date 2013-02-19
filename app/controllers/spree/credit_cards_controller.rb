@@ -1,6 +1,6 @@
 module Spree
   class CreditCardsController < Spree::BaseController
-
+    ssl_allowed
     respond_to :js
 
     def destroy
