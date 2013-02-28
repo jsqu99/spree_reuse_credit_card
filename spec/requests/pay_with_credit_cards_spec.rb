@@ -69,10 +69,8 @@ describe "PayWithCreditCards" do
 
         page.should have_xpath("//table[@class='existing-credit-card-list']/tbody/tr", :text => @credit_card.last_digits) #, :count => x) 
         choose 'existing_card'
-        save_and_open_page
 
         click_button 'Save and Continue'
-        save_and_open_page
 
         page.should have_content "Ending in #{@credit_card.last_digits}"
       end
