@@ -1,25 +1,13 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'pry'
-gem "rspec-rails", :group => [:test, :development]
+gem 'spree', '~> 1.2.0'
+gem 'spree_auth_devise', '~> 1.2.0'
 
-group :test do
-  gem 'ffaker'
-  gem 'spree_auth', '~> 1.0.0'
-  gem 'spree_gateway', :git => 'git://github.com/spree/spree_gateway.git'
-  gem 'database_cleaner'
-  gem "factory_girl_rails"
-  gem "capybara"
-  gem "guard-rspec"
-  gem 'launchy'
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails', "~> 3.2"
+  gem 'coffee-rails', "~> 3.2"
 end
-
-if RUBY_VERSION < "1.9"
-  gem "ruby-debug"
-else
-  gem "ruby-debug19"
-end
-
-gem 'spree', '~> 1.0.0'
 
 gemspec
