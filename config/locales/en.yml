@@ -3,3 +3,4 @@ en:
   credit_card_successfully_removed: "Credit Card Successfully Removed"
   credit_card_not_removed: "There Was a Problem Removing the Credit Card"
   please_select_a_card_to_use: "Please select a card to use"
+  login: 'Login'
