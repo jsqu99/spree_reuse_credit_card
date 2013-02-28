@@ -29,8 +29,8 @@
             <td>
             <%= link_to (icon('delete') + ' ' + t(:delete)),
                 spree.credit_card_url(card),
-                remote: true, method: :delete,
-                confirm: 'Are you sure?' %>
+                :remote => true, :method => :delete,
+                :confirm => 'Are you sure?' %>
             </td>
           </tr>
         <% end %>
