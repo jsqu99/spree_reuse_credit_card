@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'spree', '~> 1.2.0'
-  s.add_dependency 'spree_auth_devise', '~> 1.2.0'
 
+  s.add_development_dependency 'spree_auth_devise', '~> 1.2.0'
   s.add_development_dependency 'capybara', '1.0.1'
   s.add_development_dependency 'factory_girl_rails', '1.5.0'
   s.add_development_dependency 'ffaker'
