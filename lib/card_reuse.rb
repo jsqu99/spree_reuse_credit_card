@@ -17,7 +17,7 @@ module CardReuse
 
   def valid_for_reuse?(payment_source)
     # some payment gateways use only one of these?  stripe possibly?
-    !((payment_source.gateway_payment_profile_id.nil? && payment_source.gateway_customer_profile_id.nil?) || payment_source.deleted?)
+    !(payment_source.nil? || (payment_source.gateway_payment_profile_id.nil? && payment_source.gateway_customer_profile_id.nil?) || payment_source.deleted?)
   end
 
   def credit_card_payments_for_user(user)

@@ -109,5 +109,9 @@ describe CardReuse do
 
       expect(fixture.valid_for_reuse?(source)).to be_false
     end
+
+    it 'returns false for nil source' do
+      expect(fixture.valid_for_reuse?(nil)).to be_false
+    end
   end
 end
