@@ -52,7 +52,7 @@ describe "PayWithCreditCards" do
 
         find(:xpath, "//div[@class='product-image']/a").click
         click_button 'Add To Cart'
-        click_link 'Checkout'
+        click_button 'Checkout'
         fill_in 'First Name', :with => 'Jeff'
         fill_in 'Last Name', :with => 'Squires'
         fill_in 'Street Address', :with => '123 Foo St'
