@@ -26,7 +26,7 @@ describe "PayWithCreditCards" do
       before(:each) do
 
         # set up existing payments with this credit card
-        @credit_card = Factory(:credit_card)
+        @credit_card = Factory(:credit_card, :gateway_payment_profile_id => 'FAKE_GATEWAY_ID')
 
         order = Factory(:order_in_delivery_state, :user => user)
         order.update!  # set order.total
@@ -45,6 +45,11 @@ describe "PayWithCreditCards" do
         # go to complete
         order.next
         order.state.should eq('complete')
+
+        # capture payment
+        order.payment.capture!
+        order.update!
+        order.should_not be_outstanding_balance
       end
 
       it "allows an existing credit card to be chosen from list and used for a purchase" do
@@ -52,7 +57,7 @@ describe "PayWithCreditCards" do
 
         find(:xpath, "//div[@class='product-image']/a").click
         click_button 'Add To Cart'
-        click_link 'Checkout'
+        click_button 'Checkout'
         fill_in 'First Name', :with => 'Jeff'
         fill_in 'Last Name', :with => 'Squires'
         fill_in 'Street Address', :with => '123 Foo St'
@@ -69,10 +74,8 @@ describe "PayWithCreditCards" do
 
         page.should have_xpath("//table[@class='existing-credit-card-list']/tbody/tr", :text => @credit_card.last_digits) #, :count => x) 
         choose 'existing_card'
-        save_and_open_page
 
         click_button 'Save and Continue'
-        save_and_open_page
 
         page.should have_content "Ending in #{@credit_card.last_digits}"
       end

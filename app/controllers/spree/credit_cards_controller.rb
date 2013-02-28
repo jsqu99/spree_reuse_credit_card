@@ -14,9 +14,8 @@ module Spree
       if @credit_card.save
         respond_with @credit_card
       else
-        render template: 'spree/credit_cards/destroy_error'
+        render :template => 'spree/credit_cards/destroy_error'
       end
-
     end
   end
 end

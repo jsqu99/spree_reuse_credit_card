@@ -52,8 +52,8 @@
             <td>
             <%= link_to (image_tag("admin/icons/delete.png") + t(:delete)),
                 spree.credit_card_url(card),
-                remote: true, method: :delete,
-                confirm: 'Are you sure?' %>
+                :remote => true, :method => :delete,
+                :confirm => 'Are you sure?' %>
             </td>
             <!-- #{param_prefix} -->
           </tr>
