@@ -71,4 +71,43 @@ describe CardReuse do
       end
     end
   end
+
+  describe '#valid_for_resuse' do
+    let(:source) {
+      mock(:source).tap do |s|
+        s.stub(:gateway_payment_profile_id).and_return('gateway_payment_profile_id')
+        s.stub(:gateway_customer_profile_id).and_return('gateway_customer_profile_id')
+        s.stub(:deleted?).and_return(false)
+      end
+    }
+
+    it 'returns true for sources with all the required information' do
+      expect(fixture.valid_for_reuse?(source)).to be_true
+    end
+
+    it 'returns true for sources that are missing only gateway_payment_profile_id' do
+      source.stub(:gateway_payment_profile_id).and_return(nil)
+
+      expect(fixture.valid_for_reuse?(source)).to be_true
+    end
+
+    it 'returns true for sources that are missing only gateway_customer_profile_id' do
+      source.stub(:gateway_customer_profile_id).and_return(nil)
+
+      expect(fixture.valid_for_reuse?(source)).to be_true
+    end
+
+    it 'returns false for sources that are missing both gateway_payment_profile_id and gateway_customer_profile_id' do
+      source.stub(:gateway_payment_profile_id).and_return(nil)
+      source.stub(:gateway_customer_profile_id).and_return(nil)
+
+      expect(fixture.valid_for_reuse?(source)).to be_false
+    end
+
+    it 'returns false for sources that have been deleted' do
+      source.stub(:deleted?).and_return(true)
+
+      expect(fixture.valid_for_reuse?(source)).to be_false
+    end
+  end
 end
