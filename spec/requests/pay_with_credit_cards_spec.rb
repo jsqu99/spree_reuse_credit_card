@@ -26,7 +26,7 @@ describe "PayWithCreditCards" do
       before(:each) do
 
         # set up existing payments with this credit card
-        @credit_card = Factory(:credit_card)
+        @credit_card = Factory(:credit_card, :gateway_payment_profile_id => 'FAKE_GATEWAY_ID')
 
         order = Factory(:order_in_delivery_state, :user => user)
         order.update!  # set order.total
@@ -45,6 +45,11 @@ describe "PayWithCreditCards" do
         # go to complete
         order.next
         order.state.should eq('complete')
+
+        # capture payment
+        order.payment.capture!
+        order.update!
+        order.should_not be_outstanding_balance
       end
 
       it "allows an existing credit card to be chosen from list and used for a purchase" do
