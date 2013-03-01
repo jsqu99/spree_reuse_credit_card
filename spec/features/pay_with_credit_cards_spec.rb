@@ -58,14 +58,14 @@ describe "PayWithCreditCards" do
         find(:xpath, "//div[@class='product-image']/a").click
         click_button 'Add To Cart'
         click_button 'Checkout'
-        fill_in 'First Name', :with => 'Jeff'
-        fill_in 'Last Name', :with => 'Squires'
-        fill_in 'Street Address', :with => '123 Foo St'
-        fill_in 'City', :with => 'Fooville'
+        fill_in 'order_bill_address_attributes_firstname', :with => 'Jeff'
+        fill_in 'order_bill_address_attributes_lastname', :with => 'Squires'
+        fill_in 'order_bill_address_attributes_address1', :with => '123 Foo St'
+        fill_in 'order_bill_address_attributes_city', :with => 'Fooville'
         fill_in 'order_bill_address_attributes_state_name',:with => 'Alabama'
                                     
-        fill_in 'Zip', :with => '12345'
-        fill_in 'Phone', :with => '123-123-1234'
+        fill_in 'order_bill_address_attributes_zipcode', :with => '12345'
+        fill_in 'order_bill_address_attributes_phone', :with => '123-123-1234'
         check "Use Billing Address"
 
         click_button 'Save and Continue'
