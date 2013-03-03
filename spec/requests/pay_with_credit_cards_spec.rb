@@ -14,11 +14,64 @@ describe "PayWithCreditCards" do
       sign_in_as!(user)
     end
 
-    context "no existing cards" do
-      it "does not show an existing credit card list"do
-        Spree::Creditcard.all.map(&:destroy)
-        visit '/checkout/payment' 
-        page.should_not have_css('table.existing-credit-card-list tbody tr')
+    context "no existing cards", :js => true do
+      subject { page }
+
+      before do
+        Factory(:product)
+        Factory(:country)
+        Factory(:state)
+
+        Spree::CreditCard.all.map(&:destroy)
+
+        visit spree.products_path
+
+        find(:xpath, "//div[@class='product-image']/a").click
+        click_button 'Add To Cart'
+        click_button 'Checkout'
+        fill_in 'order_bill_address_attributes_firstname', :with => 'Jeff'
+        fill_in 'order_bill_address_attributes_lastname', :with => 'Squires'
+        fill_in 'order_bill_address_attributes_address1', :with => '123 Foo St'
+        fill_in 'order_bill_address_attributes_city', :with => 'Fooville'
+        select 'Alabama', :from => 'order_bill_address_attributes_state_id'
+                                    
+        fill_in 'order_bill_address_attributes_zipcode', :with => '12345'
+        fill_in 'order_bill_address_attributes_phone', :with => '123-123-1234'
+        check "Use Billing Address"
+
+        click_button 'Save and Continue'
+
+        click_button 'Save and Continue'
+      end
+
+      it { should_not have_css('table.existing-credit-card-list tbody tr') }
+
+      it { should have_button('Save and Continue') }
+
+      context 'when Credit Card is clicked on' do
+        before do
+          choose 'Credit Card'
+        end
+
+        it { should have_button('Save and Continue') }
+      end
+
+      context 'when Credit card is clicked on after Check is clicked on' do
+        before do
+          choose 'Credit Card'
+          choose 'Check'
+          choose 'Credit Card'
+        end
+
+        it { should have_button('Save and Continue') }
+      end
+
+      context 'when Check is clicked on' do
+        before do
+          choose 'Check'
+        end
+
+        it { should have_button('Save and Continue') }
       end
     end
 
