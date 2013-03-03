@@ -7,6 +7,7 @@ describe "PayWithCreditCards" do
     
     before(:each) do
       @bogus_payment_method = Factory(:bogus_payment_method, :display_on => :front_end)
+      Factory(:payment_method, :display_on => :front_end)
 
       shipping_method = Factory(:shipping_method)
       Spree::ShippingMethod.stub(:all_available) { [shipping_method] }
@@ -78,6 +79,35 @@ describe "PayWithCreditCards" do
         click_button 'Save and Continue'
 
         page.should have_content "Ending in #{@credit_card.last_digits}"
+      end
+
+      it 'allows selecting a different payment method', :js => true do
+        visit spree.products_path
+
+        find(:xpath, "//div[@class='product-image']/a").click
+        click_button 'Add To Cart'
+        click_button 'Checkout'
+        fill_in 'order_bill_address_attributes_firstname', :with => 'Jeff'
+        fill_in 'order_bill_address_attributes_lastname', :with => 'Squires'
+        fill_in 'order_bill_address_attributes_address1', :with => '123 Foo St'
+        fill_in 'order_bill_address_attributes_city', :with => 'Fooville'
+        select 'Alabama', :from => 'order_bill_address_attributes_state_id'
+
+        fill_in 'order_bill_address_attributes_zipcode', :with => '12345'
+        fill_in 'order_bill_address_attributes_phone', :with => '123-123-1234'
+        check "Use Billing Address"
+
+        click_button 'Save and Continue'
+
+        click_button 'Save and Continue'
+
+        choose 'use_existing_card_no'
+        choose 'use_existing_card_yes'
+        choose 'Check'
+
+        click_button 'Save and Continue'
+
+        page.should have_content('Your order has been processed successfully')
       end
     end
   end

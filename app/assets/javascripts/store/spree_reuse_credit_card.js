@@ -74,7 +74,7 @@ $(document).on('change', 'input[type=radio][name=existing_card]',function () {
 $(document).on('click','input[type="radio"][name="order[payments_attributes][][payment_method_id]"]', function() {
   ($('#payment-methods li')).hide();
   if (this.checked) {
-    if ($('#payment_method_' + this.value).parent('ul').find('#card_notice').length > 0) {
+    if ($('#payment_method_' + this.value).find('#card_notice').length > 0) {
       disableContinueButton();
     } else {
       restoreContinueButton();
