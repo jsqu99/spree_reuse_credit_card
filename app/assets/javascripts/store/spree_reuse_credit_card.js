@@ -47,7 +47,7 @@ $(document).on('click', '#use_existing_card_no', function () {
 
                                        $("[data-hook=card_number]").show();
                                        $("[data-hook=card_expiration]").show();
-                                       $("[data-hook=cart_code]").show(); // unfortunately this is a typo in spree (cart v card)
+                                       $("[data-hook=cart_code],[data-hook=card_code]").show(); // unfortunately there was a typo in spree pre-v1.1 (cart v card)
 
                                        restoreContinueButton();
 
@@ -97,7 +97,7 @@ function useExistingCardsInit() {
 
   $("[data-hook=card_number]").hide();
   $("[data-hook=card_expiration]").hide();
-  $("[data-hook=cart_code]").hide(); // unfortunately this is a typo in spree (cart v card)
+  $("[data-hook=cart_code],[data-hook=card_code]").hide(); // unfortunately there was a typo in spree pre-v1.1 (cart v card)
 
   disableContinueButton();
 }
