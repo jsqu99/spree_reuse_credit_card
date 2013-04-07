@@ -45,7 +45,12 @@
       <tbody>
         <% @cards.each do |card| %>
           <tr id="<%= dom_id(card,'spree')%>" class="<%= cycle('even', 'odd') %>">
-            <td><%= card.last_digits %></td>
+            <td>
+              <% unless (cc_type = card.cc_type).blank? %>
+                <%= image_tag "credit_cards/icons/#{cc_type}.png" %>
+              <% end %>
+              <%= card.last_digits %>
+            </td>
             <td><%= card.month %></td>
             <td><%= card.year %></td>
             <td><%= radio_button_tag "existing_card", card.id, (@cards.size ==1) %></td> <%# if we only have 1 saved card, autoselect %>
