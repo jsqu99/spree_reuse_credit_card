@@ -11,10 +11,10 @@
 <% if @cards.present? %>
   <div id="card_options">
   <%= radio_button_tag 'use_existing_card', 'yes', true %>
-  <label>Use an existing card on file</label>
+  <label for="use_existing_card_yes">Use an existing card on file</label>
   <br/>
   <%= radio_button_tag 'use_existing_card', 'no' %>
-  <label>Use a new card</label>
+  <label for="use_existing_card_no">Use a new card</label>
   </div>
 
 <div id="existing_cards">
