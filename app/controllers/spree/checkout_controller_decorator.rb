@@ -39,7 +39,13 @@ module Spree
           params[:order][:payments_attributes].first[:amount] = @order.total
         end
       end
-      params[:order]
+      
+      if params[:order]
+        params[:order].permit(permitted_checkout_attributes)
+      else
+        {}
+      end
+
     end
 
   end

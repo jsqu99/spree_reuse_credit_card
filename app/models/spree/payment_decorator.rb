@@ -1,5 +1,6 @@
 module Spree
   Payment.class_eval do
-    attr_accessible :source, :source_attributes
+    Spree::PermittedAttributes.payment_attributes << :source
+    Spree::PermittedAttributes.payment_attributes << :source_attributes
   end
 end

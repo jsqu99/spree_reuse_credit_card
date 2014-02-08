@@ -1,6 +1,6 @@
 module Spree
   CreditCard.class_eval do
-    attr_accessible :deleted_at
+    Spree::PermittedAttributes.source_attributes << :deleted_at
 
     def deleted?
       !!deleted_at
